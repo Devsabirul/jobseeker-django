@@ -40,21 +40,21 @@
 				      </div>
 				      <nav id="nav-menu-container">
 				        <ul class="nav-menu">
-				          <li class="menu-active"><a href="index.html">Home</a></li>
-				          <li><a href="about-us.html">About Us</a></li>
-				          <li><a href="category.html">Category</a></li>
-				          <li><a href="price.html">Price</a></li>
-				          <li><a href="blog-home.html">Blog</a></li>
-				          <li><a href="contact.html">Contact</a></li>
+				          <li class="menu-active"><a href="{% url 'indexpage' %}">Home</a></li>
+				          <li><a href="{% url 'about_us' %}">About Us</a></li>
+				          <li><a href="{% url 'category' %}">Category</a></li>
+				          <li><a href="{% url 'price_us' %}">Price</a></li>
+				          <li><a href="{% url 'blog_us' %}">Blog</a></li>
+				          <li><a href="{% url 'contact_us' %}">Contact</a></li>
 				          <li class="menu-has-children"><a href="">Pages</a>
 				            <ul>
-								<li><a href="elements.html">elements</a></li>
-								<li><a href="search.html">search</a></li>
-								<li><a href="single.html">single</a></li>
+								<li><a href="{% url 'elements_page' %}">elements</a></li>
+								<li><a href="{% url 'search_page' %}">search</a></li>
+								<li><a href="{% url 'single_page' %}">single</a></li>
 				            </ul>
 				          </li>
-				          <li><a class="ticker-btn" href="#">Signup</a></li>
-				          <li><a class="ticker-btn" href="#">Login</a></li>				          				          
+				          <li><a class="ticker-btn" href="{% url 'registration' %}">Signup</a></li>
+				          <li><a class="ticker-btn" href="{% url 'login' %}">Login</a></li>				          				          
 				        </ul>
 				      </nav><!-- #nav-menu-container -->		    		
 			    	</div>

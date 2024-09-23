@@ -22,4 +22,5 @@ urlpatterns = [
     # path("",include("core.urls")),
     path("api/",include("core.api.urls")),
     path('',include("store.urls")),
+    path('',include("u_account.urls")),
 ]
