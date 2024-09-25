@@ -1,26 +1,38 @@
-from django.shortcuts import render, redirect
-from .forms import *
+from django.shortcuts import render,redirect
+from django.contrib.auth.models import User
+from .models import Profile
 
-# Create your views here.
-def signup(request):
-    if request.method=='POST':
-        s_form=SignupForm(request.POST, request.FILES, instance=request.user)
-        p_form=ProfileForm(request.POST, request.FILES, instace=request.user.Profile)
-        if s_form.is_valid() and p_form.is_valid():
-            s_form.save()
-            p_form.save()
-            return redirect('indexpage')
-    else:
-        s_form=SignupForm(request.POST, instance=request.user)
-        p_form=ProfileForm(request.POST, instace=request.user.Profile)
 
-    context={
-        's_form':s_form,
-        'p_form':p_form
-    }
+def registration(request):
+    # If the user is authenticated, redirect them to the homepage
+    if request.user.is_authenticated:
+        return redirect('/')
 
-    return render(request,'userapp/signup.html', context)
+    if request.method == 'POST':  # Handle POST request for form submission
+        username = request.POST.get('username')
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        password = request.POST.get('password')
+
+        # Ensure username is provided to avoid ValueError
+         # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            return render(request, 'userapp/signup.html', {'error': 'Username already exists'})
+
+        else:
+            user = User.objects.create_user(username=username, first_name=name, email=email, password=password)
+            user.save()
+
+        # Create user profile after user is saved
+            profile = Profile(user=user, phone=phone)
+            profile.save()
+
+            print("User and profile saved successfully")
+            return redirect('login')  # Redirect after successful registration
+    
+    # If it's a GET request, render the signup form
+    return render(request, 'userapp/signup.html')
 
 def login(request):
-    
-    return render(request, 'login.html')
+    return render(request, 'userapp/login.html')
