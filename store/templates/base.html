@@ -53,8 +53,12 @@
 								<li><a href="{% url 'single_page' %}">single</a></li>
 				            </ul>
 				          </li>
+                          {% if user.is_authenticated %}
+                          <li><a class="ticker-btn" href="{% url 'logout' %}">Logout</a></li>
+                          {% else %}
 				          <li><a class="ticker-btn" href="{% url 'registration' %}">Signup</a></li>
-				          <li><a class="ticker-btn" href="{% url 'login' %}">Login</a></li>				          				          
+				          <li><a class="ticker-btn" href="{% url 'login' %}">Login</a></li>
+                          {% endif %}				          				          
 				        </ul>
 				      </nav><!-- #nav-menu-container -->		    		
 			    	</div>
