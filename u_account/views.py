@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from .models import Profile
 
 
@@ -34,5 +36,17 @@ def registration(request):
     # If it's a GET request, render the signup form
     return render(request, 'userapp/signup.html')
 
-def login(request):
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("/")
+
+    if request.method=="POST":
+        user=authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        if user:
+            login(request, user)
+            messages.success(request, 'logged in successfully')
+            return redirect('indexpage')
+        else:
+            messages.error(request, 'log in fail')
+
     return render(request, 'userapp/login.html')
