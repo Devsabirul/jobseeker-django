@@ -1,9 +1,10 @@
 from django.shortcuts import render
-
-# Create your views here.
+from .models import *
 def index(request):
-
-    return render(request, 'index.html')
+    jobs = Job_details.objects.all()
+    categorys = Categories.objects.all()
+    areas = Area.objects.all()
+    return render(request, 'index.html',locals())
 
 def about(request):
 
@@ -30,7 +31,11 @@ def elements(request):
     return render(request, 'elements.html')
 
 def search(request):
-    
+    title = request.GET.get("search")
+    area = request.GET.get("area")
+    category = request.GET.get("category")
+
+    print(title,area,category)
     return render(request, 'search.html')
 
 def single(request):

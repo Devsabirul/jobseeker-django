@@ -55,6 +55,10 @@
 		{% if error %}
 			toastr.error("{{ error }}");
 		{% endif %}
+
+		{% if success %}
+			toastr.success("{{success}}")
+		{% endif %}
 	</script>
 </body>
 
