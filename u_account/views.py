@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from .models import Profile
 
 
@@ -18,20 +20,37 @@ def registration(request):
         # Ensure username is provided to avoid ValueError
          # Check if username already exists
         if User.objects.filter(username=username).exists():
-            return render(request, 'signup.html', {'error': 'Username already exists'})
+            return render(request, 'userapp/signup.html', {'error': 'Username already exists'})
 
-        user = User.objects.create_user(username=username, first_name=name, email=email, password=password)
-        user.save()
+        else:
+            user = User.objects.create_user(username=username, first_name=name, email=email, password=password)
+            user.save()
 
         # Create user profile after user is saved
-        profile = Profile(user=user, phone=phone)
-        profile.save()
+            profile = Profile(user=user, phone=phone)
+            profile.save()
 
-        print("User and profile saved successfully")
-        return redirect('login')  # Redirect after successful registration
+            print("User and profile saved successfully")
+            return redirect('login')  # Redirect after successful registration
     
     # If it's a GET request, render the signup form
-    return render(request, 'signup.html')
+    return render(request, 'userapp/signup.html')
 
-def login(request):
-    return render(request, 'login.html')
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("about_us")
+
+    if request.method=="POST":
+        user=authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        if user:
+            login(request, user)
+            print('logged in successfully')
+            return redirect('indexpage')
+        else:
+            print('log in fail')
+
+    return render(request, 'userapp/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('indexpage')
