@@ -11,7 +11,7 @@ urlpatterns = [
     path('price/', price, name='price_us'),
     path('blog/', blog, name='blog_us'),
     path('elements/', elements, name='elements_page'),
-    path('search/', search, name='search_page'),
+    path('search', search, name='search_page'),
     path('single/', single, name='single_page'),
    
 ]

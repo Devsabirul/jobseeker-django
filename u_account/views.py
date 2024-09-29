@@ -26,12 +26,12 @@ def registration(request):
             user = User.objects.create_user(username=username, first_name=name, email=email, password=password)
             user.save()
 
-        # Create user profile after user is saved
+            # Create user profile after user is saved
             profile = Profile(user=user, phone=phone)
             profile.save()
 
             print("User and profile saved successfully")
-            return redirect('login')  # Redirect after successful registration
+            return render(request, 'userapp/signup.html',{"success":"Account created successfully"})  # Redirect after successful registration
     
     # If it's a GET request, render the signup form
     return render(request, 'userapp/signup.html')
