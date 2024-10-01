@@ -1,5 +1,6 @@
 from django.db import models
 from u_account.models import Profile
+from django.db.models import Q
 
 
 class Categories(models.Model):

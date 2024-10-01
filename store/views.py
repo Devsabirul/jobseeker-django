@@ -35,8 +35,13 @@ def search(request):
     area = request.GET.get("area")
     category = request.GET.get("category")
 
+    search_value=Job_details.objects.filter(Q(title='title')|Q(area='area')|Q(catagory='catagory.catagory_title'))
+    context={
+        'search_value': search_value
+    }
+
     print(title,area,category)
-    return render(request, 'search.html')
+    return render(request, 'search.html', context)
 
 def single(request):
     
