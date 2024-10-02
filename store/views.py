@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import *
+from django.db.models import Q
+
 def index(request):
-    jobs = Job_details.objects.all()
+    jobs = Job_details.objects.order_by("-id")
     categorys = Categories.objects.all()
     areas = Area.objects.all()
     return render(request, 'index.html',locals())
@@ -34,7 +36,8 @@ def search(request):
     title = request.GET.get("search")
     area = request.GET.get("area")
     category = request.GET.get("category")
-
+    jobs = Job_details.objects.filter(Q(title=title) | Q(area=area)|Q(category=category))
+    print(jobs)
     print(title,area,category)
     return render(request, 'search.html')
 

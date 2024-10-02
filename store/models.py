@@ -20,7 +20,7 @@ class Job_details(models.Model):
     profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
     title=models.CharField(max_length=100)
     job_description=models.TextField(max_length=200, blank=True, null=True)
-    work_deadline=models.DateTimeField(auto_now_add=True)
+    work_deadline=models.DateTimeField(auto_now_add=False)
     status=models.BooleanField(default=True)
     job_location=models.CharField(max_length=100, blank=True, null=True)
     area = models.CharField(max_length=100,default="UK")
