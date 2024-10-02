@@ -54,7 +54,14 @@
 					</div>
 				</div>
 			</section>
-			<!-- End banner Area -->	
+			<!-- End banner Area -->
+			 
+			 {% for a in search_value %}
+			 <p>{{a.title}}</p>
+			 <p>{{a.rate_per_hour}}
+				
+			 {% endfor %}
+					
 			
 			<!-- Start post Area -->
 			<section class="post-area section-gap">
