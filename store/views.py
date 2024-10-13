@@ -6,6 +6,9 @@ def index(request):
     jobs = Job_details.objects.order_by("-id")
     categorys = Categories.objects.all()
     areas = Area.objects.all()
+    popular_jobs = Job_details.objects.all()[:5]
+    top_jobs = Job_details.objects.all()[:3]
+    categories = Categories.objects.all()
     return render(request, 'index.html',locals())
 
 def about(request):
@@ -36,10 +39,9 @@ def search(request):
     title = request.GET.get("search")
     area = request.GET.get("area")
     category = request.GET.get("category")
-    jobs = Job_details.objects.filter(Q(title=title) | Q(area=area)|Q(category=category))
-    print(jobs)
-    print(title,area,category)
-    return render(request, 'search.html')
+
+    search_value=Job_details.objects.filter(Q(title__startswith=title) | Q(area__icontains=area) | Q(category__category_title__icontains=category))
+    return render(request, 'search.html', locals())
 
 def single(request):
     
